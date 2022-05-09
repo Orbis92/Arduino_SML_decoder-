@@ -1,8 +1,6 @@
-# Arduino_SML_decoder
+# EMH eBZD SML decoder for Arduino
 
-## EMH eBZD decoder for Arduino
-
-Quick and dirty SML (Smart Meter Language) decoder and MQTT transmitter for the EMH eBZD smart meter.
+## Quick and dirty SML (Smart Meter Language) decoder and MQTT transmitter for the EMH eBZD smart meter.
 
 - Tested only with Arduino MEGA and ENC28J60 Phy.
 
