@@ -1,7 +1,10 @@
 # Arduino_SML_decoder
+
+## EMH eBZD decoder for Arduino
+
 Quick and dirty SML (Smart Meter Language) decoder and MQTT transmitter for the EMH eBZD smart meter.
 
-Tested only with Arduino MEGA and ENC28J60 Phy.
+- Tested only with Arduino MEGA and ENC28J60 Phy.
 
 Special decoder for the eBZD "Bezugszähler" 1 EMH00 with IR data port. When capturing the messages from this smart meter I noticed a small difference to the other meters. The payload is not fixed in length (and padded with zeros), so I had to find the start and end of the payload myself with different, non-changing data fields. 
 This works quite well, but so far the code cannot detect if its just reading the meter value or if the current power display and output is unlocked via PIN. 
