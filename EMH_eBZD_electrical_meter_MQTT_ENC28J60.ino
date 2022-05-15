@@ -187,15 +187,14 @@ void loop() {
     }
 
     //capture data
-    while(Serial3.available()) {            //not sure whether if() works better here
+    while(Serial3.available()) {            
       unsigned char in = Serial3.read();    
       msgStr += bytetoHEX(in);
-      //delay(10);  //wait for more bytes
     } 
 
     //try parsing
-    unsigned char validData =  0;    //0 no header or energy data, 1 only energy, 3 energy & power
-    if(msgStr.length() >= 300) validData = parse();         //some bytes captures, try parse    
+    unsigned char validData =  0;    			//0 no header or energy data, 1 only energy, 3 energy & power
+    if(msgStr.length() >= 300) validData = parse();     //some bytes captures, try parse    
     
     //printing values
     if(validData >= 3) {  //engery and power decoded
@@ -258,7 +257,7 @@ inline unsigned char parse() {
   short index = msgStr.indexOf(SearchHead);  
 
   if(index >= 0) {  //valid "head" found    
-    signed char ret = 0;
+    unsigned char ret = 0;
     signed short sE = -1, eE = -1, sP = -1, eP = -1;
 
     sE = msgStr.indexOf(SearchStartE, index);  
@@ -268,7 +267,6 @@ inline unsigned char parse() {
       if(eE > 0) {  // > sE
         String payloadE = msgStr.substring(sE, eE);
         //Serial.print("E_hex: ") ; Serial.println(payloadE) ;    //debug
-        //energy = strtoul(payloadE.c_str(), NULL, 16);           //32bit 
         energy = strtoul(payloadE.c_str(), NULL, 16);     //64bit
         ret += 1;   //bit0 = 1
       } else {
@@ -289,7 +287,7 @@ inline unsigned char parse() {
         ret += 2; //bit1 = 1
       }
     }
-    //debug
+    //more debug
     //Serial.print("sE: "); Serial.println(sE); 
     //Serial.print("eE: "); Serial.println(eE);  
     //Serial.print("sP: "); Serial.println(sP);
@@ -297,7 +295,6 @@ inline unsigned char parse() {
 
     return ret;
   }
-
   return 0;  //no header found
 }
 
