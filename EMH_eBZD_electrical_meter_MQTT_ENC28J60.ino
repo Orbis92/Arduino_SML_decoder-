@@ -28,7 +28,7 @@
 #include <EthernetENC.h>            //<EthernetENC.h> for ENC28J60   //<Ethernet.h>  for W5500 (not tested)
 
 //MqttClient
-#define MQTT_LOG_ENABLED 0
+#define MQTT_LOG_ENABLED 0	   //logging off, uncomment in code too
 #include <MqttClient.h>
 
 /******************************** Ethernet Client Setup ********************************/
@@ -58,10 +58,8 @@ String msgStr = "" ;
 #define STR_RES     850  //Reserved chars //1 message Byte stored as HEX number in 2 Chars
 #define STR_LIM     800  //Reset before reserve is reached
 
-//32bit max = 4,294,967,295
-//raw meter value is 0.1Wh -> 32bit max 429496kWh (@50kWh/day -> 23years max) 
-uint64_t energy = 0;                 //64bit  (101 billion years max...)
-unsigned long int power = 0;         //4 Gigawatt max should be enough...
+unsigned long int energy = 0;                
+unsigned long int power = 0;         
 
 //============== MQTT logging ===================================
 // #define LOG_PRINTFLN(fmt, ...)	printfln_P(PSTR(fmt), ##__VA_ARGS__)
