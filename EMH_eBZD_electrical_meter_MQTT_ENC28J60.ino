@@ -269,7 +269,7 @@ inline unsigned char parse() {
         String payloadE = msgStr.substring(sE, eE);
         //Serial.print("E_hex: ") ; Serial.println(payloadE) ;    //debug
         //energy = strtoul(payloadE.c_str(), NULL, 16);           //32bit 
-        energy = string2uint64(payloadE.c_str(), NULL, 16);     //64bit
+        energy = strtoul(payloadE.c_str(), NULL, 16);     //64bit
         ret += 1;   //bit0 = 1
       } else {
         return 0;
@@ -307,35 +307,6 @@ inline String bytetoHEX(byte in) {
   if (in < 16) str += "0";
   str += String(in, HEX);
   return str;
-}
-
-//================== String22uint64_t =================================================
-uint64_t string2uint64(const char* in, char** endptr, int base) {
-  unsigned char shift = 0;
-  if(base > 10) shift = 64;   //hex string uses 2 bytes per "Byte" // 0xFF -> 255 = 1 Byte
-  else shift = 32;
-  
-  char temp[shift+1];
-
-  if(sizeof(in) <= shift) {
-    memcpy(temp, in, shift);
-    temp[shift] = '\0';
-    return (uint64_t)strtoul(in, endptr, base);
-  } else {
-    uint64_t ret = 0;
-    
-    //top 32bit
-  	memcpy(temp, in, shift);
-    temp[shift] = '\0';
-    ret += (uint64_t)strtoul(temp, endptr, base) << 32;
-
-    //bottom 32bit
-  	memcpy(temp, in+shift, shift);
-    temp[shift] = '\0';
-    ret += (uint64_t)strtoul(temp, endptr, base);
-
-    return ret;
-  }
 }
 
 // ============== Subscription callback ========================================
